@@ -31,8 +31,8 @@ apis = [
 ]
 
 server = 'test202.sddev.uz'
-login = 'nurzada'
-password = '123'
+login = ''
+password = ''
 
 def getToken(server: str, login: str, password: str):
 	conn = http.client.HTTPSConnection(server)
