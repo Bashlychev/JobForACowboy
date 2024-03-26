@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC
+	"-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>CDbException</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent;margin:0;padding:0;}
+body{line-height:1;}
+ol,ul{list-style:none;}
+blockquote,q{quotes:none;}
+blockquote:before,blockquote:after,q:before,q:after{content:none;}
+:focus{outline:0;}
+ins{text-decoration:none;}
+del{text-decoration:line-through;}
+table{border-collapse:collapse;border-spacing:0;}
+
+body {
+	font: normal 9pt "Verdana";
+	color: #000;
+	background: #fff;
+}
+
+h1 {
+	font: normal 18pt "Verdana";
+	color: #f00;
+	margin-bottom: .5em;
+}
+
+h2 {
+	font: normal 14pt "Verdana";
+	color: #800000;
+	margin-bottom: .5em;
+}
+
+h3 {
+	font: bold 11pt "Verdana";
+}
+
+pre {
+	font: normal 11pt Menlo, Consolas, "Lucida Console", Monospace;
+}
+
+pre span.error {
+	display: block;
+	background: #fce3e3;
+}
+
+pre span.ln {
+	color: #999;
+	padding-right: 0.5em;
+	border-right: 1px solid #ccc;
+}
+
+pre span.error-ln {
+	font-weight: bold;
+}
+
+.container {
+	margin: 1em 4em;
+}
+
+.version {
+	color: gray;
+	font-size: 8pt;
+	border-top: 1px solid #aaa;
+	padding-top: 1em;
+	margin-bottom: 1em;
+}
+
+.message {
+	color: #000;
+	padding: 1em;
+	font-size: 11pt;
+	background: #f3f3f3;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	margin-bottom: 1em;
+	line-height: 160%;
+}
+
+.source {
+	margin-bottom: 1em;
+}
+
+.code pre {
+	background-color: #ffe;
+	margin: 0.5em 0;
+	padding: 0.5em;
+	line-height: 125%;
+	border: 1px solid #eee;
+}
+
+.source .file {
+	margin-bottom: 1em;
+	font-weight: bold;
+}
+
+.traces {
+	margin: 2em 0;
+}
+
+.trace {
+	margin: 0.5em 0;
+	padding: 0.5em;
+}
+
+.trace.app {
+	border: 1px dashed #c00;
+}
+
+.trace .number {
+	text-align: right;
+	width: 2em;
+	padding: 0.5em;
+}
+
+.trace .content {
+	padding: 0.5em;
+}
+
+.trace .plus,
+.trace .minus {
+	display:inline;
+	vertical-align:middle;
+	text-align:center;
+	border:1px solid #000;
+	color:#000;
+	font-size:10px;
+	line-height:10px;
+	margin:0;
+	padding:0 1px;
+	width:10px;
+	height:10px;
+}
+
+.trace.collapsed .minus,
+.trace.expanded .plus,
+.trace.collapsed pre {
+	display: none;
+}
+
+.trace-file {
+	cursor: pointer;
+	padding: 0.2em;
+}
+
+.trace-file:hover {
+	background: #f0ffff;
+}
+/*]]>*/
+</style>
+</head>
+
+<body>
+<div class="container">
+	<h1>CDbException</h1>
+
+	<p class="message">
+		CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#039;)<br />
+          AND p.PRODUCT_CAT_ID &lt;&gt; &#039;total&#039;&#039; at line 26. The SQL statement executed was: <br />
+      SELECT<br />
+        p.ID,<br />
+        a.AGENT_ID,<br />
+        c.NAME,<br />
+        c.PRODUCT_CAT_ID,<br />
+        c.UNIT,<br />
+        p.SUMMA as PLAN_SUMMA,<br />
+        p.COUNT as PLAN_COUNT,<br />
+        p.VOLUME as PLAN_VOLUME,<br />
+        p.STRIKE as PLAN_STRIKE,<br />
+        p.AKB as PLAN_AKB,<br />
+        0 as FACT_SUMMA,<br />
+        0 as FACT_COUNT,<br />
+        0 as FACT_VOLUME,<br />
+        0 as FACT_STRIKE,<br />
+        0 as FACT_AKB,<br />
+        :supervayzer as PASSED_SUPERVAYZER<br />
+      FROM `d0_planning` p<br />
+        LEFT JOIN `d0_agent` a ON p.AGENT_ID = a.AGENT_ID<br />
+        LEFT JOIN `d0_product_category` c ON p.PRODUCT_CAT_ID = c.PRODUCT_CAT_ID <br />
+      WHERE a.ACTIVE = &#039;Y&#039;<br />
+           AND a.AGENT_ID = :agent <br />
+          <br />
+          AND p.YEAR = :year<br />
+          AND p.MONTH = :month<br />
+          AND p.ID NOT IN ()<br />
+          AND p.PRODUCT_CAT_ID &lt;&gt; &#039;total&#039;<br />
+    	</p>
+
+	<div class="source">
+		<p class="file">/var/www/common/framework/db/CDbCommand.php(543)</p>
+		<div class="code"><pre><span class="ln">531</span>         {
+<span class="ln">532</span>             if($this-&gt;_connection-&gt;enableProfiling)
+<span class="ln">533</span>                 Yii::endProfile(&#039;system.db.CDbCommand.query(&#039;.$this-&gt;getText().$par.&#039;)&#039;,&#039;system.db.CDbCommand.query&#039;);
+<span class="ln">534</span> 
+<span class="ln">535</span>             $errorInfo=$e instanceof PDOException ? $e-&gt;errorInfo : null;
+<span class="ln">536</span>             $message=$e-&gt;getMessage();
+<span class="ln">537</span>             Yii::log(Yii::t(&#039;yii&#039;,&#039;CDbCommand::{method}() failed: {error}. The SQL statement executed was: {sql}.&#039;,
+<span class="ln">538</span>                 array(&#039;{method}&#039;=&gt;$method, &#039;{error}&#039;=&gt;$message, &#039;{sql}&#039;=&gt;$this-&gt;getText().$par)),CLogger::LEVEL_ERROR,&#039;system.db.CDbCommand&#039;);
+<span class="ln">539</span> 
+<span class="ln">540</span>             if(YII_DEBUG)
+<span class="ln">541</span>                 $message.=&#039;. The SQL statement executed was: &#039;.$this-&gt;getText().$par;
+<span class="ln">542</span> 
+<span class="error"><span class="ln error-ln">543</span>             throw new CDbException(Yii::t(&#039;yii&#039;,&#039;CDbCommand failed to execute the SQL statement: {error}&#039;,
+</span><span class="ln">544</span>                 array(&#039;{error}&#039;=&gt;$message)),(int)$e-&gt;getCode(),$errorInfo);
+<span class="ln">545</span>         }
+<span class="ln">546</span>     }
+<span class="ln">547</span> 
+<span class="ln">548</span>     /**
+<span class="ln">549</span>      * Builds a SQL SELECT statement from the given query specification.
+<span class="ln">550</span>      * @param array $query the query specification in name-value pairs. The following
+<span class="ln">551</span>      * query options are supported: {@link select}, {@link distinct}, {@link from},
+<span class="ln">552</span>      * {@link where}, {@link join}, {@link group}, {@link having}, {@link order},
+<span class="ln">553</span>      * {@link limit}, {@link offset} and {@link union}.
+<span class="ln">554</span>      * @throws CDbException if &quot;from&quot; key is not present in given query parameter
+<span class="ln">555</span>      * @return string the SQL statement
+</pre></div>	</div>
+
+	<div class="traces">
+		<h2>Stack Trace</h2>
+				<table style="width:100%;">
+						<tr class="trace core collapsed">
+			<td class="number">
+				#0			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/db/CDbCommand.php(396): <strong>CDbCommand</strong>-><strong>queryInternal</strong>(&quot;fetchAll&quot;, array(2), array(&quot;year&quot; =&gt; &quot;2024&quot;, &quot;month&quot; =&gt; &quot;4&quot;, &quot;agent&quot; =&gt; &quot;d0_17&quot;, &quot;supervayzer&quot; =&gt; &quot;&quot;))				</div>
+
+				<div class="code"><pre><span class="ln">391</span>      * An empty array is returned if the query results in nothing.
+<span class="ln">392</span>      * @throws CException execution failed
+<span class="ln">393</span>      */
+<span class="ln">394</span>     public function queryAll($fetchAssociative=true,$params=array())
+<span class="ln">395</span>     {
+<span class="error"><span class="ln error-ln">396</span>         return $this-&gt;queryInternal(&#039;fetchAll&#039;,$fetchAssociative ? $this-&gt;_fetchMode : PDO::FETCH_NUM, $params);
+</span><span class="ln">397</span>     }
+<span class="ln">398</span> 
+<span class="ln">399</span>     /**
+<span class="ln">400</span>      * Executes the SQL statement and returns the first row of the result.
+<span class="ln">401</span>      * This is a convenient method of {@link query} when only the first row of data is needed.
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app expanded">
+			<td class="number">
+				#1			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/protected/modules/planning/models/Monthly2.php(127): <strong>CDbCommand</strong>-><strong>queryAll</strong>(true, array(&quot;year&quot; =&gt; &quot;2024&quot;, &quot;month&quot; =&gt; &quot;4&quot;, &quot;agent&quot; =&gt; &quot;d0_17&quot;, &quot;supervayzer&quot; =&gt; &quot;&quot;))				</div>
+
+				<div class="code"><pre><span class="ln">122</span>           AND p.MONTH = :month
+<span class="ln">123</span>           AND p.ID NOT IN ($notInCategoryIdsPrepared)
+<span class="ln">124</span>           AND p.PRODUCT_CAT_ID &lt;&gt; &#039;total&#039;
+<span class="ln">125</span>     &quot;;
+<span class="ln">126</span> 
+<span class="error"><span class="ln error-ln">127</span>     return Yii::app()-&gt;db-&gt;createCommand($sql)-&gt;queryAll(true, $params2);
+</span><span class="ln">128</span>   }
+<span class="ln">129</span> 
+<span class="ln">130</span>   public static function Data ($params = []) {
+<span class="ln">131</span>       unset($params[&#039;adkham&#039;]);
+<span class="ln">132</span>     
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app expanded">
+			<td class="number">
+				#2			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/protected/modules/planning/models/Monthly2.php(138): <strong>Monthly2</strong>::<strong>GetZeroFactCategories</strong>(array(&quot;year&quot; =&gt; &quot;2024&quot;, &quot;month&quot; =&gt; &quot;4&quot;, &quot;agent&quot; =&gt; &quot;d0_17&quot;, &quot;supervayzer&quot; =&gt; &quot;&quot;), array())				</div>
+
+				<div class="code"><pre><span class="ln">133</span>     $params2 = $params;
+<span class="ln">134</span> 
+<span class="ln">135</span>     $days = Helper::WorkingDays($params);
+<span class="ln">136</span>     $agents = Monthly2::Agent($params);
+<span class="ln">137</span>     $categories = Monthly2::Category($params);
+<span class="error"><span class="ln error-ln">138</span>     $zeroFactCategories = Monthly2::GetZeroFactCategories($params2, $categories);
+</span><span class="ln">139</span> 
+<span class="ln">140</span>     foreach ($zeroFactCategories as $category) {
+<span class="ln">141</span>       $categories[] = $category;
+<span class="ln">142</span>     }
+<span class="ln">143</span> 
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app expanded">
+			<td class="number">
+				#3			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/protected/modules/api3/models/Monthly.php(36): <strong>Monthly2</strong>::<strong>Data</strong>(array(&quot;year&quot; =&gt; &quot;2024&quot;, &quot;month&quot; =&gt; &quot;4&quot;, &quot;agent&quot; =&gt; &quot;d0_17&quot;, &quot;supervayzer&quot; =&gt; &quot;&quot;))				</div>
+
+				<div class="code"><pre><span class="ln">31</span>   public static function MonthlyByAgent ($params)
+<span class="ln">32</span>   {
+<span class="ln">33</span>     $params[&#039;supervayzer&#039;] = &#039;&#039;;
+<span class="ln">34</span> 
+<span class="ln">35</span>     $pulses = Monthly2::Pulse($params);
+<span class="error"><span class="ln error-ln">36</span>     $agent = Monthly2::Data($params)[0];
+</span><span class="ln">37</span> 
+<span class="ln">38</span>     $result = [
+<span class="ln">39</span>       &#039;agentId&#039; =&gt; $agent[&#039;AGENT_ID&#039;],
+<span class="ln">40</span>       &#039;percentDone&#039; =&gt; 0,
+<span class="ln">41</span>       &#039;percentForecast&#039; =&gt; 0,
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app collapsed">
+			<td class="number">
+				#4			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/protected/modules/api3/models/Monthly.php(25): <strong>Monthly</strong>::<strong>MonthlyByAgent</strong>(array(&quot;year&quot; =&gt; &quot;2024&quot;, &quot;month&quot; =&gt; &quot;4&quot;, &quot;agent&quot; =&gt; &quot;d0_17&quot;, &quot;supervayzer&quot; =&gt; &quot;&quot;))				</div>
+
+				<div class="code"><pre><span class="ln">20</span>     while (strtotime($date) &lt;= strtotime($params[&#039;to&#039;])) {
+<span class="ln">21</span>       $dateParams = [
+<span class="ln">22</span>         &quot;year&quot; =&gt; date(&quot;Y&quot;, strtotime($date)),
+<span class="ln">23</span>         &quot;month&quot; =&gt; date(&quot;n&quot;, strtotime($date))
+<span class="ln">24</span>       ];
+<span class="error"><span class="ln error-ln">25</span>       $results[] = array_merge($dateParams, Monthly::MonthlyByAgent(array_merge($dateParams, [&#039;agent&#039; =&gt; $params[&#039;agent&#039;]])));
+</span><span class="ln">26</span>       $date = date(&quot;Y-m-d&quot;, strtotime(&quot;+1 month&quot;, strtotime($date)));
+<span class="ln">27</span>     }
+<span class="ln">28</span>     return $results;
+<span class="ln">29</span>   }
+<span class="ln">30</span> 
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app collapsed">
+			<td class="number">
+				#5			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/protected/modules/api3/controllers/KpiController.php(175): <strong>Monthly</strong>::<strong>MonthlyByDate</strong>(array(&quot;agent&quot; =&gt; &quot;d0_17&quot;, &quot;from&quot; =&gt; &quot;2024-03-01 00:00:00&quot;, &quot;to&quot; =&gt; &quot;2024-04-01 00:00:00&quot;))				</div>
+
+				<div class="code"><pre><span class="ln">170</span>                     &quot;products&quot; =&gt; $bp_json
+<span class="ln">171</span>                 ),
+<span class="ln">172</span>                 &quot;outlet_monthly&quot; =&gt; Monthly::MonthlyByDate([
+<span class="ln">173</span>                     &quot;agent&quot; =&gt; $this-&gt;agentId,
+<span class="ln">174</span>                     &quot;from&quot; =&gt; $from,
+<span class="error"><span class="ln error-ln">175</span>                     &quot;to&quot; =&gt; $to
+</span><span class="ln">176</span>                 ])
+<span class="ln">177</span>             )
+<span class="ln">178</span>         );
+<span class="ln">179</span> 
+<span class="ln">180</span>         $responseJson = json_encode($response);
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app collapsed">
+			<td class="number">
+				#6			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/protected/modules/api3/controllers/KpiController.php(14): <strong>KpiController</strong>-><strong>version2</strong>()				</div>
+
+				<div class="code"><pre><span class="ln">09</span>     public function actionIndex()
+<span class="ln">10</span>     {
+<span class="ln">11</span>         if(($_REQUEST[&quot;test&quot;]) == 1){
+<span class="ln">12</span>             $this-&gt;versionTest();
+<span class="ln">13</span>         }else{
+<span class="error"><span class="ln error-ln">14</span>             $this-&gt;version2();
+</span><span class="ln">15</span>         }
+<span class="ln">16</span>     }
+<span class="ln">17</span> 
+<span class="ln">18</span>     public function version2() 
+<span class="ln">19</span>     {
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#7			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/web/actions/CInlineAction.php(49): <strong>KpiController</strong>-><strong>actionIndex</strong>()				</div>
+
+				<div class="code"><pre><span class="ln">44</span>         $controller=$this-&gt;getController();
+<span class="ln">45</span>         $method=new ReflectionMethod($controller, $methodName);
+<span class="ln">46</span>         if($method-&gt;getNumberOfParameters()&gt;0)
+<span class="ln">47</span>             return $this-&gt;runWithParamsInternal($controller, $method, $params);
+<span class="ln">48</span>         else
+<span class="error"><span class="ln error-ln">49</span>             return $controller-&gt;$methodName();
+</span><span class="ln">50</span>     }
+<span class="ln">51</span> 
+<span class="ln">52</span> }
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#8			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/web/CController.php(308): <strong>CInlineAction</strong>-><strong>runWithParams</strong>(array(&quot;u&quot; =&gt; &quot;agent&quot;, &quot;apiVersion&quot; =&gt; &quot;3&quot;, &quot;deviceToken&quot; =&gt; &quot;37b50f2a4f3761863c008146fd98a4730e414799bdbccf9e2cc813ad57d01e7c&quot;, &quot;chk&quot; =&gt; &quot;1711439493428&quot;))				</div>
+
+				<div class="code"><pre><span class="ln">303</span>     {
+<span class="ln">304</span>         $priorAction=$this-&gt;_action;
+<span class="ln">305</span>         $this-&gt;_action=$action;
+<span class="ln">306</span>         if($this-&gt;beforeAction($action))
+<span class="ln">307</span>         {
+<span class="error"><span class="ln error-ln">308</span>             if($action-&gt;runWithParams($this-&gt;getActionParams())===false)
+</span><span class="ln">309</span>                 $this-&gt;invalidActionParams($action);
+<span class="ln">310</span>             else
+<span class="ln">311</span>                 $this-&gt;afterAction($action);
+<span class="ln">312</span>         }
+<span class="ln">313</span>         $this-&gt;_action=$priorAction;
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#9			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/web/CController.php(286): <strong>CController</strong>-><strong>runAction</strong>(CInlineAction)				</div>
+
+				<div class="code"><pre><span class="ln">281</span>      * @see runAction
+<span class="ln">282</span>      */
+<span class="ln">283</span>     public function runActionWithFilters($action,$filters)
+<span class="ln">284</span>     {
+<span class="ln">285</span>         if(empty($filters))
+<span class="error"><span class="ln error-ln">286</span>             $this-&gt;runAction($action);
+</span><span class="ln">287</span>         else
+<span class="ln">288</span>         {
+<span class="ln">289</span>             $priorAction=$this-&gt;_action;
+<span class="ln">290</span>             $this-&gt;_action=$action;
+<span class="ln">291</span>             CFilterChain::create($this,$action,$filters)-&gt;run();
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#10			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/web/CController.php(265): <strong>CController</strong>-><strong>runActionWithFilters</strong>(CInlineAction, array())				</div>
+
+				<div class="code"><pre><span class="ln">260</span>         {
+<span class="ln">261</span>             if(($parent=$this-&gt;getModule())===null)
+<span class="ln">262</span>                 $parent=Yii::app();
+<span class="ln">263</span>             if($parent-&gt;beforeControllerAction($this,$action))
+<span class="ln">264</span>             {
+<span class="error"><span class="ln error-ln">265</span>                 $this-&gt;runActionWithFilters($action,$this-&gt;filters());
+</span><span class="ln">266</span>                 $parent-&gt;afterControllerAction($this,$action);
+<span class="ln">267</span>             }
+<span class="ln">268</span>         }
+<span class="ln">269</span>         else
+<span class="ln">270</span>             $this-&gt;missingAction($actionID);
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#11			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/web/CWebApplication.php(282): <strong>CController</strong>-><strong>run</strong>(&quot;&quot;)				</div>
+
+				<div class="code"><pre><span class="ln">277</span>         {
+<span class="ln">278</span>             list($controller,$actionID)=$ca;
+<span class="ln">279</span>             $oldController=$this-&gt;_controller;
+<span class="ln">280</span>             $this-&gt;_controller=$controller;
+<span class="ln">281</span>             $controller-&gt;init();
+<span class="error"><span class="ln error-ln">282</span>             $controller-&gt;run($actionID);
+</span><span class="ln">283</span>             $this-&gt;_controller=$oldController;
+<span class="ln">284</span>         }
+<span class="ln">285</span>         else
+<span class="ln">286</span>             throw new CHttpException(404,Yii::t(&#039;yii&#039;,&#039;Unable to resolve the request &quot;{route}&quot;.&#039;,
+<span class="ln">287</span>                 array(&#039;{route}&#039;=&gt;$route===&#039;&#039;?$this-&gt;defaultController:$route)));
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#12			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/web/CWebApplication.php(141): <strong>CWebApplication</strong>-><strong>runController</strong>(&quot;api3/kpi&quot;)				</div>
+
+				<div class="code"><pre><span class="ln">136</span>             foreach(array_splice($this-&gt;catchAllRequest,1) as $name=&gt;$value)
+<span class="ln">137</span>                 $_GET[$name]=$value;
+<span class="ln">138</span>         }
+<span class="ln">139</span>         else
+<span class="ln">140</span>             $route=$this-&gt;getUrlManager()-&gt;parseUrl($this-&gt;getRequest());
+<span class="error"><span class="ln error-ln">141</span>         $this-&gt;runController($route);
+</span><span class="ln">142</span>     }
+<span class="ln">143</span> 
+<span class="ln">144</span>     /**
+<span class="ln">145</span>      * Registers the core application components.
+<span class="ln">146</span>      * This method overrides the parent implementation by registering additional core components.
+</pre></div>			</td>
+		</tr>
+						<tr class="trace core collapsed">
+			<td class="number">
+				#13			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/common/framework/base/CApplication.php(180): <strong>CWebApplication</strong>-><strong>processRequest</strong>()				</div>
+
+				<div class="code"><pre><span class="ln">175</span>     public function run()
+<span class="ln">176</span>     {
+<span class="ln">177</span>         if($this-&gt;hasEventHandler(&#039;onBeginRequest&#039;))
+<span class="ln">178</span>             $this-&gt;onBeginRequest(new CEvent($this));
+<span class="ln">179</span>         register_shutdown_function(array($this,&#039;end&#039;),0,false);
+<span class="error"><span class="ln error-ln">180</span>         $this-&gt;processRequest();
+</span><span class="ln">181</span>         if($this-&gt;hasEventHandler(&#039;onEndRequest&#039;))
+<span class="ln">182</span>             $this-&gt;onEndRequest(new CEvent($this));
+<span class="ln">183</span>     }
+<span class="ln">184</span> 
+<span class="ln">185</span>     /**
+</pre></div>			</td>
+		</tr>
+						<tr class="trace app collapsed">
+			<td class="number">
+				#14			</td>
+			<td class="content">
+				<div class="trace-file">
+											<div class="plus">+</div>
+						<div class="minus">–</div>
+										&nbsp;/var/www/test203.sddev.uz/index.php(27): <strong>CApplication</strong>-><strong>run</strong>()				</div>
+
+				<div class="code"><pre><span class="ln">22</span> 
+<span class="ln">23</span> set_include_path(&quot;{$dir}/protected/extensions/helpers:{$dir}/protected/extensions/task-box:{$dir}/protected/components:{$dir}/protected/models&quot;);
+<span class="ln">24</span> 
+<span class="ln">25</span> Yii::$classMap=array(&quot;CAccessControlFilter&quot; =&gt; &quot;{$dir}/protected/components/CAccessControlFilter.php&quot;);
+<span class="ln">26</span> 
+<span class="error"><span class="ln error-ln">27</span> Yii::createWebApplication($config)-&gt;run();
+</span><span class="ln">28</span> 
+<span class="ln">29</span> ?&gt;
+</pre></div>			</td>
+		</tr>
+				</table>
+	</div>
+
+	<div class="version">
+		2024-03-26 12:51:34 nginx/1.24.0 <a href="http://www.yiiframework.com/">Yii Framework</a>/1.1.15	</div>
+</div>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+var traceReg = new RegExp("(^|\\s)trace-file(\\s|$)");
+var collapsedReg = new RegExp("(^|\\s)collapsed(\\s|$)");
+
+var e = document.getElementsByTagName("div");
+for(var j=0,len=e.length;j<len;j++){
+	if(traceReg.test(e[j].className)){
+		e[j].onclick = function(){
+			var trace = this.parentNode.parentNode;
+			if(collapsedReg.test(trace.className))
+				trace.className = trace.className.replace("collapsed", "expanded");
+			else
+				trace.className = trace.className.replace("expanded", "collapsed");
+		}
+	}
+}
+/*]]>*/
+</script>
+
+</body>
+</html>
+k
